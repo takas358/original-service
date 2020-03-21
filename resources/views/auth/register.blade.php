@@ -14,7 +14,7 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('sex', '性別')!!}
-                    {!! Form::select('age',
+                    {!! Form::select('sex',
                             ['' => '選択してください', 
                             '1' => '男',
                             '2' => '女',
@@ -123,8 +123,8 @@
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('password', 'パスワード（確認用）') !!}
-                    {!! Form::password('password', ['class' => 'form-control']) !!}
+                    {!! Form::label('password_confirmation', 'パスワード（確認用）') !!}
+                    {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
                 {!! Form::submit('会員登録', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
