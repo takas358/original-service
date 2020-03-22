@@ -2,7 +2,25 @@
 
 @section('content')
     @if(Auth::check())
-        {{ Auth::user()->name }}
+        <div class="row">
+            <aside class="col-sm-4">
+                <div class="text-left">
+                    <h1>マイページ</h1>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ Auth::user()->name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <img class="rounded img-fluid" src="{{ Gravatar::src(Auth::user()->email,500) }}" alt="">
+                    </div>
+                </div>
+                {!! link_to_route('enquetes.create','新規アンケートの作成', [], ['class'=>'btn btn-primary']) !!}
+            </aside>
+            <div class="col-sm-8">
+                @include('enquetes.enquetes',['enquetes'=>$enquetes])
+            </div>
+        </div>
     @else
         <div class="left jumbotron">
             <div class="text-left" style="color: green">
