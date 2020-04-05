@@ -9,6 +9,11 @@
     
     <body>
         @include('commons.navbar')
+        @if (session('flash_message'))
+            <div class="flash_message">
+                {{ session('flash_message') }}
+            </div>
+        @endif
         <div class="container">
             @include('commons.error_messages')
             @yield('content')

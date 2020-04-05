@@ -11,18 +11,23 @@
                 <div class="row">
                     <div>
                         {!! Form::open(['route'=>['enquetes.show',$enquete->id], 'method' => 'get'])!!}
-                            {!! Form::submit('詳細',['class' => 'btn btn-success btn-sm']) !!}
+                            {!! Form::submit('詳細',['class' => 'btn btn-outline-success btn-sm']) !!}
                         {!! Form::close() !!}
                     </div>
                     <div>
                         {!! Form::open(['route'=>['enquetes.edit',$enquete->id], 'method' => 'get'])!!}
-                            {!! Form::submit('変更',['class' => 'btn btn-primary btn-sm']) !!}
+                            {!! Form::submit('変更',['class' => 'btn btn-outline-success btn-sm']) !!}
+                        {!! Form::close() !!}
+                    </div>
+                    <div>
+                        {!! Form::open(['route'=>['answers.create',$enquete->id], 'method' => 'get'])!!}
+                            {!! Form::submit('回答',['class' => 'btn btn-outline-success btn-sm']) !!}
                         {!! Form::close() !!}
                     </div>
                     <div>
                         @if (Auth::id() == $enquete->user_id)
                             {!! Form::open(['route'=>['enquetes.destroy',$enquete->id], 'method' => 'delete'])!!}
-                                {!! Form::submit('削除',['class' => 'btn btn-danger btn-sm']) !!}
+                                {!! Form::submit('削除',['class' => 'btn btn-outline-danger btn-sm']) !!}
                             {!! Form::close() !!}
                         @endif
                     </div>

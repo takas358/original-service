@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Enquete;
 use App\User;
+use App\Answer;
 
 class EnquetesController extends Controller
 {
@@ -14,7 +15,7 @@ class EnquetesController extends Controller
         $data = [];
         if(\Auth::user()){
             $user=\Auth::user();
-            $enquetes = $user->enquetes()->orderBy('created_at','desc')->paginate(10);
+            $enquetes = Enquete::orderBy('created_at','desc')->paginate(10);
 
             $data = [
                'user' => $user,
@@ -55,9 +56,38 @@ class EnquetesController extends Controller
     public function show($id)
     {
         $enquete = Enquete::find($id);
+        $answer = Answer::where('enquete_id',$enquete->id)->first();
+        
+        //回答1~3の存在チェック
+        $answer_exists=["0","0","0"];
+        $answer_display=
+        [
+            "回答はまだありません",
+            "回答はまだありません",
+            "回答はまだありません",
+        ];
+
+        if( is_null($answer)){
+        }else{
+            if(!is_null($answer->answer1) ){
+                $answer_exists[0] = "1";
+                $answer_display[0] = $answer->answer1;
+            }
+            if(!is_null($answer->answer2) ){
+                $answer_exists[1] = "1";
+                $answer_display[1] = $answer->answer2;
+            }
+            if(!is_null($answer->answer3) ){
+                $answer_exists[2] = "1";
+                $answer_display[2] = $answer->answer3;
+            }
+        }
         
         return view('enquetes.show',[
             'enquete' => $enquete,
+            'answer' => $answer,
+            'answer_exists' => $answer_exists,
+            'answer_display' => $answer_display,
         ]);
     }
     

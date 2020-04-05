@@ -1,4 +1,4 @@
-@extends('layouts.app');
+@extends('layouts.app')
 @section('content')
     <h1>id: {{ $enquete->id }} のアンケート変更</h1>
     

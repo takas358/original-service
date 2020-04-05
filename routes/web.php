@@ -26,4 +26,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('users', 'UsersController', ['only' => ['index','show']]);
     Route::resource('enquetes', 'EnquetesController');
+    Route::resource('answers', 'AnswersController');
+    Route::get('enquetes/{id}/answer_create', 'AnswersController@create')->name('answers.create');
+    Route::post('enquetes/{id}/answer_store', 'AnswersController@store')->name('answers.store');
 });

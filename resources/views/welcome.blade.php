@@ -15,6 +15,7 @@
                         <img class="rounded img-fluid" src="{{ Gravatar::src(Auth::user()->email,500) }}" alt="">
                     </div>
                 </div>
+                <br>
                 {!! link_to_route('enquetes.create','新規アンケートの作成', [], ['class'=>'btn btn-primary']) !!}
             </aside>
             <div class="col-sm-8">
