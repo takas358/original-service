@@ -10,17 +10,47 @@ use App\Answer;
 
 class EnquetesController extends Controller
 {
-    public function index()
+    public function top(){
+        $data = [];
+        if(\Auth::user()){
+
+            $user=\Auth::user();
+            $enquetes = $user->enquetes()->orderBy('created_at','desc')->paginate(10);
+                    
+            $data = [
+               'user' => $user,
+               'enquetes' => $enquetes,
+            ];
+            
+            $data += $this->counts($user);
+        }
+        return view('welcome', $data);
+    }
+    
+    public function index($page_type)
     {
         $data = [];
         if(\Auth::user()){
+
             $user=\Auth::user();
-            $enquetes = Enquete::orderBy('created_at','desc')->paginate(10);
+            switch($page_type){
+                case "1":
+                    $enquetes = $user->favorites()->paginate(10);
+                    break;
+                case "2":
+                    $enquetes = $user->enquetes()->orderBy('created_at','desc')->paginate(10);
+                    break;
+                case "3":
+                    $enquetes = Enquete::where('user_id','!=',$user->id)->orderBy('created_at','desc')->paginate(10);
+                    break;
+            }
 
             $data = [
                'user' => $user,
-                'enquetes' => $enquetes,
+               'enquetes' => $enquetes,
             ];
+            
+            $data += $this->counts($user);
         }
         return view('welcome', $data);
     }

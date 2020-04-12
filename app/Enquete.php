@@ -17,4 +17,8 @@ class Enquete extends Model
     {
         return $this->hasMany(Answer::class);
     }
+    
+    public function favorite_users(){
+        return $this->belongsToMany(User::class, 'favorites','enquete_id','user_id');
+    }
 }

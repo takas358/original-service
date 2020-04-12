@@ -19,6 +19,7 @@
                 {!! link_to_route('enquetes.create','新規アンケートの作成', [], ['class'=>'btn btn-primary']) !!}
             </aside>
             <div class="col-sm-8">
+                @include('enquetes.navtabs')
                 @include('enquetes.enquetes',['enquetes'=>$enquetes])
             </div>
         </div>
