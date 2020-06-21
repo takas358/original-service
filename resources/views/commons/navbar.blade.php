@@ -13,7 +13,6 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li class="dropdown-item"><a href="#">My profile</a></li>
                             <li class="dropdown-driver"></li>
                             <li class="dropdown-item">{!! link_to_route('logout.get','ログアウト') !!}</li>
                         </ul>

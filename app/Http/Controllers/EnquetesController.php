@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Enquete;
 use App\User;
 use App\Answer;
+use App\Choice;
+
+use App\Http\Controllers;
 
 class EnquetesController extends Controller
 {
@@ -80,7 +83,9 @@ class EnquetesController extends Controller
             'question3' => $request->question3,
         ]);
         
-        return redirect('/');
+        $enquete = Enquete::where('user_id','=',\Auth::user()->id)->orderBy('created_at','desc')->first();
+
+        return redirect('enquetes/'.$enquete->id.'/choice_create');
     }
     
     public function show($id)
@@ -125,19 +130,39 @@ class EnquetesController extends Controller
     {
         $enquete = Enquete::find($id);
         
+        $choice = [];
+        $choice_display = [[]];
+        $choice_column_name = ['min_select','max_select','choice1','choice2','choice3','choice4','choice5'];
+        
+        for($i = 1;$i <= 3;$i++){
+            $choice[$i-1] = $enquete->choices()->where('question_number','=',$i)->first();
+            for($j = 1;$j <= 7; $j++){
+                if(! is_null($choice[$i-1])){
+                    $choice_display[$i-1][$j-1] = $choice[$i-1]->{$choice_column_name[$j-1]};
+                }else{
+                    $choice_display[$i-1][$j-1] = null;
+                }
+            }
+        }
+        
         return view('enquetes.edit',[
             'enquete' => $enquete,
+            'choice_display' => $choice_display,
         ]);
     }
     
     public function update(Request $request, $id)
     {
         $enquete = Enquete::find($id);
+
         $enquete->title = $request->title;
         $enquete->question1 = $request->question1;
         $enquete->question2 = $request->question2;
         $enquete->question3 = $request->question3;
         $enquete->save();
+        
+        $coices_controller = app()->make('App\Http\Controllers\ChoicesController');
+        $coices_controller->update($request, $id);
         
         return redirect('/');
     }
@@ -147,7 +172,8 @@ class EnquetesController extends Controller
         $enquete = Enquete::find($id);
         
         if(\Auth::id()===$enquete->user_id){
-            $enquete->delete()  ;
+            $enquete->choices()->delete();
+            $enquete->delete();
         }
         
         return redirect('/');

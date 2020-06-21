@@ -2,8 +2,9 @@
 
 @section('content')
 
-    <h1>アンケート新規作成ページ</h1>
-    
+    <h1>アンケート新規作成ページ(1/2)</h1>
+    <h2>~タイトル・質問内容の設定~</h2>
+    <br>
     <div class="row">
         <div class="col-6">
             {!! Form::model($enquete, ['route'=>'enquetes.store'])!!}
@@ -27,7 +28,7 @@
                     {!! Form::label('question3','質問3') !!}
                     {!! Form::text('question3',null,['class'=>'form-control'])!!}
                 </div>
-                {!! Form::submit('投稿',['class'=>'btn btn-primary'])!!}
+                {!! Form::submit('送信',['class'=>'btn btn-primary'])!!}
             {!! Form::close() !!}
         </div>
     </div>

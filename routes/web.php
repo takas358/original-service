@@ -24,17 +24,20 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 // ユーザ機能
 Route::group(['middleware' => 'auth'], function(){
-    //Route::resource('users', 'UsersController', ['only' => ['index','show']]);
+    //アンケート作成、変更、削除
     Route::get('enquetes/index/{page_type}', 'EnquetesController@index')->name('enquetes.index_type');
     Route::resource('enquetes', 'EnquetesController');
+    Route::get('enquetes/{id}/choice_create', 'ChoicesController@create')->name('choices.create');
+    Route::post('enquetes/{id}/choice_store', 'ChoicesController@store')->name('choices.store');
 
+    //アンケート回答
     Route::resource('answers', 'AnswersController');
     Route::get('enquetes/{id}/answer_create', 'AnswersController@create')->name('answers.create');
     Route::post('enquetes/{id}/answer_store', 'AnswersController@store')->name('answers.store');
     
-    Route::group(['prefix' => 'users/{id}'], function(){
+    /*Route::group(['prefix' => 'users/{id}'], function(){
         Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
-    });
+    });*/
     
     Route::group(['prefix' => 'enquetes/{id}'], function(){
         Route::post('favorite', 'FavoritesController@store')->name('favorites.favorite');
