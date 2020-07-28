@@ -17,8 +17,8 @@ class CreateEnquetesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('question1');
-            $table->string('question2');
-            $table->string('question3');
+            $table->string('question2')->nullable();
+            $table->string('question3')->nullable();
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
 

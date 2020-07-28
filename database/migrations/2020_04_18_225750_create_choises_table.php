@@ -17,7 +17,6 @@ class CreateChoisesTable extends Migration
             $table->increments('id');
             $table->integer('enquete_id')->unsigned()->index();
             $table->string('question_number');
-            $table->string('answer_format');
             $table->string('min_select');
             $table->string('max_select');
             $table->string('choise1');
@@ -25,11 +24,6 @@ class CreateChoisesTable extends Migration
             $table->string('choise3');
             $table->string('choise4');
             $table->string('choise5');
-            $table->string('choise6');
-            $table->string('choise7');
-            $table->string('choise8');
-            $table->string('choise9');
-            $table->string('choise10');
             $table->timestamps();
 
             // 外部キー制約
