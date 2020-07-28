@@ -91,38 +91,88 @@ class EnquetesController extends Controller
     public function show($id)
     {
         $enquete = Enquete::find($id);
-        $answer = Answer::where('enquete_id',$enquete->id)->first();
+        
+        $response_count = Answer::where('enquete_id',$id)->count();
+        
+        
+        $select_message = [[]];
+        for($i = 1;$i <= 3;$i++){
+            $question_name = 'question'.$i;
+            if(! is_null($enquete->$question_name)){
+                $choice = $enquete->choices()->where('question_number','=',$i)->first();
+                if(! is_null($choice)){
+                    if($choice->min_select == $choice->max_select){
+                        $select_message[$i-1] = '次の選択肢の中から、'.$choice->max_select.'つ選んでください。';
+                    }else{
+                        $select_message[$i-1] = '次の選択肢の中から、最小：'.$choice->min_select.'つ／最大：'.$choice->max_select.'つ選んでください。';
+                    }
+                }else{
+                    $select_message[$i-1] = '【注意：この質問には選択肢が設定されていません。】';
+                }
+            }
+        }
         
         //回答1~3の存在チェック
-        $answer_exists=["0","0","0"];
-        $answer_display=
-        [
-            "回答はまだありません",
-            "回答はまだありません",
-            "回答はまだありません",
+        $answer_exists = ["0","0","0"];
+        $answer_nothing = [
+            "まだ回答はありません。",
+            "まだ回答はありません。",
+            "まだ回答はありません。",
         ];
-
-        if( is_null($answer)){
-        }else{
-            if(!is_null($answer->answer1) ){
-                $answer_exists[0] = "1";
-                $answer_display[0] = $answer->answer1;
+        $answer = Answer::where('enquete_id',$id)->get();
+        foreach($answer as $ans){
+            if(! is_null($ans)){
+                if($ans->answer1 != "00000"){
+                    $answer_exists[0] = "1";
+                }
+                if($ans->answer2 != "00000"){
+                    $answer_exists[1] = "1";
+                }
+                if($ans->answer3 != "00000"){
+                    $answer_exists[2] = "1";
+                }
             }
-            if(!is_null($answer->answer2) ){
-                $answer_exists[1] = "1";
-                $answer_display[1] = $answer->answer2;
+        }
+        
+        $pattern[0] = '1%';
+        $pattern[1] = '_1___';
+        $pattern[2] = '__1__';
+        $pattern[3] = '___1_';
+        $pattern[4] = '%1';
+        
+        $answer_count = [[]];
+        for($i = 1;$i <= 3;$i++){
+            $answer_count[$i-1][5] = 0;
+            $answer_number = 'answer'.$i;
+            //回答別の選択数を格納
+            for($j = 0;$j <= 4;$j++){
+                $answer_count[$i-1][$j] = Answer::where('enquete_id',$id)->where($answer_number,'like',$pattern[$j])->count();
+                $answer_count[$i-1][5] += $answer_count[$i-1][$j];
             }
-            if(!is_null($answer->answer3) ){
-                $answer_exists[2] = "1";
-                $answer_display[2] = $answer->answer3;
+            //回答別の構成比を格納
+            for($k = 0;$k <= 4;$k++){
+                if($answer_count[$i-1][5] == 0){
+                    $composition_ratio[$i-1][$k] = 0.0;
+                }else{
+                    $composition_ratio[$i-1][$k] = round($answer_count[$i-1][$k]/$answer_count[$i-1][5]*100,1);
+                }
             }
+        }
+        
+        for($i = 1;$i <= 3;$i++){
+            $choices[$i-1] = null;
+            $choices[$i-1] = Choice::where('enquete_id',$id)->where('question_number',$i)->first();
         }
         
         return view('enquetes.show',[
             'enquete' => $enquete,
-            'answer' => $answer,
+            'response_count' => $response_count,
+            'select_message' => $select_message,
             'answer_exists' => $answer_exists,
-            'answer_display' => $answer_display,
+            'answer_nothing' => $answer_nothing,
+            'answer_count' => $answer_count,
+            'composition_ratio' => $composition_ratio,
+            'choices' => $choices,
         ]);
     }
     

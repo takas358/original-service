@@ -8,24 +8,54 @@
         <div class="col-6">
             <br>
             <h3>タイトル：{!! $enquete->title !!}</h3>
-            {!! Form::model($answer, ['route' => ['answers.store',$enquete->id],'method' => 'post']) !!}
+            {!! Form::open(['route'=> ['answers.store',$enquete->id],'method' => 'post'])!!}
                 <div class="form-group">
-                    {!! Form::label('question1', "質問1：".$enquete->question1) !!}
-                    {!! Form::text('answer1',null,['class'=>'form-control']) !!}
-                </div>
-                @if ($enquete->question2 != null)
-                    <div class="form-group">
-                        {!! Form::label('question2', "質問2：".$enquete->question2) !!}
-                        {!! Form::text('answer2',null,['class'=>'form-control']) !!}
-                    </div>
-                @endif
-                @if ($enquete->question3 != null)
-                    <div class="form-group">
-                        {!! Form::label('question3', "質問3：".$enquete->question3) !!}
-                        {!! Form::text('answer3',null,['class'=>'form-control']) !!}
-                    </div>
-                @endif
-                {!! Form::submit('回答',['class'=>'btn btn-success'])!!}
+                    <h3>質問1</h3>
+                    <h5><p>「{!! $enquete->question1 !!}」</p></h5>
+                    <h6><p>{!! $select_message[0] !!}</p></h6>
+                    <br>
+                    @php $i = 0; @endphp
+                    @foreach($choices_display[0] as $choices)
+                        @if(! is_null($choices))
+                            {!! Form::checkbox('choices_question1['.$i.']') !!}
+                            {!! Form::label('choices_question1['.$i.']',$choices) !!}
+                            <br>
+                            @php $i = $i + 1; @endphp
+                        @endif
+                    @endforeach
+                    <br>
+                    @if ($enquete->question2 != null)
+                        <h3>質問2</h3>
+                        <h5><p>「{!! $enquete->question2 !!}」</p></h5>
+                        <h6><p>{!! $select_message[1] !!}</p></h6>
+                        <br>
+                        @php $i = 0; @endphp
+                        @foreach($choices_display[1] as $choices)
+                            @if(! is_null($choices))
+                                {!! Form::checkbox('choices_question2['.$i.']') !!}
+                                {!! Form::label('choices_question2['.$i.']',$choices) !!}
+                                <br>
+                                @php $i = $i + 1; @endphp
+                            @endif
+                        @endforeach
+                    @endif
+                    <br>
+                    @if ($enquete->question3 != null)
+                        <h3>質問3</h3>
+                        <h5><p>「{!! $enquete->question3 !!}」</p></h5>
+                        <h6><p>{!! $select_message[2] !!}</p></h6>
+                        <br>
+                        @php $i = 0; @endphp
+                        @foreach($choices_display[2] as $choices)
+                            @if(! is_null($choices))
+                                {!! Form::checkbox('choices_question3['.$i.']') !!}
+                                {!! Form::label('choices_question3['.$i.']',$choices) !!}
+                                <br>
+                                @php $i = $i + 1; @endphp
+                            @endif
+                        @endforeach
+                    @endif
+                {!! Form::submit('回答',['class'=>'btn btn-primary'])!!}
             {!! Form::close() !!}
         </div>
     </div>

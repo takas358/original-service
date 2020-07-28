@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('answers', 'AnswersController');
     Route::get('enquetes/{id}/answer_create', 'AnswersController@create')->name('answers.create');
     Route::post('enquetes/{id}/answer_store', 'AnswersController@store')->name('answers.store');
+    Route::delete('enquetes/{id}/answer_delete', 'AnswersController@destroy')->name('answers.delete');
     
     /*Route::group(['prefix' => 'users/{id}'], function(){
         Route::get('favorites', 'UsersController@favorites')->name('users.favorites');
