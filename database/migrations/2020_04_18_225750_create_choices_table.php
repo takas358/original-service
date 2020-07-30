@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChoisesTable extends Migration
+class CreateChoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateChoisesTable extends Migration
      */
     public function up()
     {
-        Schema::create('choises', function (Blueprint $table) {
+        Schema::create('choices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('enquete_id')->unsigned()->index();
             $table->string('question_number');
             $table->string('min_select');
             $table->string('max_select');
-            $table->string('choise1');
-            $table->string('choise2');
-            $table->string('choise3');
-            $table->string('choise4');
-            $table->string('choise5');
+            $table->string('choice1');
+            $table->string('choice2');
+            $table->string('choice3');
+            $table->string('choice4');
+            $table->string('choice5');
             $table->timestamps();
 
             // 外部キー制約
@@ -38,6 +38,6 @@ class CreateChoisesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('choises');
+        Schema::dropIfExists('choices');
     }
 }
