@@ -20,10 +20,10 @@ class CreateChoicesTable extends Migration
             $table->string('min_select');
             $table->string('max_select');
             $table->string('choice1');
-            $table->string('choice2');
-            $table->string('choice3');
-            $table->string('choice4');
-            $table->string('choice5');
+            $table->string('choice2')->nullable();
+            $table->string('choice3')->nullable();
+            $table->string('choice4')->nullable();
+            $table->string('choice5')->nullable();
             $table->timestamps();
 
             // 外部キー制約
