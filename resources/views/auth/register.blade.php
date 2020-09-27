@@ -1,3 +1,10 @@
+{{-- 
+-------------------------------------------------------------------------------------
+   会員登録ページ
+-------------------------------------------------------------------------------------
+--}}
+
+{{-- ----------  ナビゲーションバー・エラーメッセージを表示 ---------- --}}
 @extends('layouts.app')
 
 @section('content')
@@ -8,10 +15,12 @@
         <div class="col-sm-6 offset-sm-3">
             
             {!! Form::open(['route' => 'signup.post']) !!}
+                {{-- ----------  ニックネーム入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('name', 'ニックネーム')!!}
                     {!! Form::text('name', old('name'), ['class' => 'form-control']) !!}
                 </div>
+                {{-- ----------  性別入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('sex', '性別')!!}
                     {!! Form::select('sex',
@@ -23,6 +32,7 @@
                         null, ['class' => 'form-control']) 
                     !!}
                 </div>
+                {{-- ----------  年齢入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('age', '年齢')!!}
                     {!! Form::select('age',
@@ -41,6 +51,7 @@
                         null, ['class' => 'form-control']) 
                     !!}
                 </div>
+                {{-- ----------  都道府県入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('address', '都道府県')!!}
                     {!! Form::select('address',
@@ -96,6 +107,7 @@
                         null, ['class' => 'form-control']) 
                     !!}
                 </div>
+                {{-- ----------  職業入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('job', '職業')!!}
                     {!! Form::select('job',
@@ -114,18 +126,22 @@
                         null, ['class' => 'form-control']) 
                     !!}
                 </div>
+                {{-- ----------  メールアドレス入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('email', 'メールアドレス')!!}
                     {!! Form::text('email', old('email'), ['class' => 'form-control']) !!}
                 </div>
+                {{-- ----------  パスワード入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('password', 'パスワード') !!}
                     {!! Form::password('password', ['class' => 'form-control']) !!}
                 </div>
+                {{-- ----------  パスワード（確認用）入力欄を表示 ---------- --}}
                 <div class="form-group">
                     {!! Form::label('password_confirmation', 'パスワード（確認用）') !!}
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
+                {{-- ---------- 「会員登録」ボタンを表示 ---------- --}}
                 {!! Form::submit('会員登録', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
         </div>

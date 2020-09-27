@@ -1,20 +1,33 @@
+{{-- 
+-------------------------------------------------------------------------------------
+   アンケート変更ページ
+-------------------------------------------------------------------------------------
+--}}
+
+{{-- ----------  ナビゲーションバー・エラーメッセージを表示 ---------- --}}
 @extends('layouts.app')
+
 @section('content')
+    {{-- ----------  ページタイトルを表示 ---------- --}}
     <h1>id: {{ $enquete->id }} のアンケート変更</h1>
     
     <div class="row">
         <div class="col-6">
             {!! Form::open(['route' => ['enquetes.update', $enquete->id],'method'=>'put'])!!}
+                {{-- ----------  アンケートタイトル入力欄を表示 ---------- --}}
                 <div class="form-group">
                     <h3>タイトル</h3>
                     {!! Form::text('title', $enquete->title, ['class'=>'form-control']) !!}
                 </div>
+                {{-- ----------  質問1 ---------- --}}
                 <div class="form-group">
                     <h3>質問1</h3>
+                    {{-- ----------  質問1 質問内容入力欄の表示---------- --}}
                     {!! Form::text('question1', $enquete->question1, ['class'=>'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <div class ="form-inline">
+                        {{-- ----------  質問1 最小選択数入力欄の表示---------- --}}
                         {!! Form::label('min_select1', '最小選択数')!!}
                         {!! Form::select('min_select1',
                                 ['' => '選択してください', 
@@ -27,6 +40,7 @@
                             $choice_display[0][0], ['class' => 'form-control']) 
                         !!}
                         &nbsp;&nbsp;&nbsp;
+                        {{-- ----------  質問1 最大選択数入力欄の表示---------- --}}
                         {!! Form::label('max_select1', '最大選択数')!!}
                         {!! Form::select('max_select1',
                                 ['' => '選択してください', 
@@ -39,6 +53,7 @@
                             $choice_display[0][1], ['class' => 'form-control']) 
                         !!}
                     </div>
+                    {{-- ----------  質問1 選択肢入力欄の表示---------- --}}
                     <div class="form-group">
                         {!! Form::label('choice1_1', '選択肢1')!!}
                         {!! Form::text('choice1_1', $choice_display[0][2], ['class' => 'form-control']) !!}
@@ -53,12 +68,15 @@
                     </div>
                 </div>
 
+                {{-- ----------  質問2 ---------- --}}
                 <div class="form-group">
                     <h3>質問2</h3>
+                    {{-- ----------  質問2 質問内容入力欄の表示---------- --}}
                     {!! Form::text('question2', $enquete->question2, ['class'=>'form-control']) !!}
                 </div>
                 <div class="form-group">
                     <div class ="form-inline">
+                        {{-- ----------  質問2 最小選択数入力欄の表示---------- --}}
                         {!! Form::label('min_select2', '最小選択数')!!}
                         {!! Form::select('min_select2',
                                 ['' => '選択してください', 
@@ -71,6 +89,7 @@
                             $choice_display[1][0], ['class' => 'form-control']) 
                         !!}
                         &nbsp;&nbsp;&nbsp;
+                        {{-- ----------  質問2 最大選択数入力欄の表示---------- --}}
                         {!! Form::label('max_select2', '最大選択数')!!}
                         {!! Form::select('max_select2',
                                 ['' => '選択してください', 
@@ -83,6 +102,7 @@
                             $choice_display[1][1], ['class' => 'form-control']) 
                         !!}
                     </div>
+                    {{-- ----------  質問2 選択肢入力欄の表示---------- --}}
                     <div class="form-group">
                         {!! Form::label('choice2_1', '選択肢1')!!}
                         {!! Form::text('choice2_1', $choice_display[1][2], ['class' => 'form-control']) !!}
@@ -96,13 +116,16 @@
                         {!! Form::text('choice2_5', $choice_display[1][6], ['class' => 'form-control']) !!}
                     </div>
                 </div>
-            
+
+                {{-- ----------  質問3入力欄を表示 ---------- --}}
                 <div class="form-group">
                     <h3>質問3</h3>
+                    {{-- ----------  質問3 質問内容入力欄の表示---------- --}}
                     {!! Form::text('question3', $enquete->question3, ['class'=>'form-control']) !!}
                 </div>
-                                <div class="form-group">
+                <div class="form-group">
                     <div class ="form-inline">
+                        {-- ----------  質問3 最小選択数入力欄の表示---------- --}}
                         {!! Form::label('min_select3', '最小選択数')!!}
                         {!! Form::select('min_select3',
                                 ['' => '選択してください', 
@@ -115,6 +138,7 @@
                             $choice_display[2][0], ['class' => 'form-control']) 
                         !!}
                         &nbsp;&nbsp;&nbsp;
+                        {{-- ----------  質問3 最大選択数入力欄の表示---------- --}}
                         {!! Form::label('max_select3', '最大選択数')!!}
                         {!! Form::select('max_select3',
                                 ['' => '選択してください', 
@@ -127,6 +151,7 @@
                             $choice_display[2][1], ['class' => 'form-control']) 
                         !!}
                     </div>
+                    {{-- ----------  質問3 選択肢入力欄の表示---------- --}}
                     <div class="form-group">
                         {!! Form::label('choice3_1', '選択肢1')!!}
                         {!! Form::text('choice3_1', $choice_display[2][2], ['class' => 'form-control']) !!}
@@ -140,6 +165,7 @@
                         {!! Form::text('choice3_5', $choice_display[2][6], ['class' => 'form-control']) !!}
                     </div>
                 </div>
+                {{-- ----------  「更新」ボタンを表示 ---------- --}}
                 {!! Form::submit('更新',['class'=>'btn btn-primary']) !!}
             {!! Form::close() !!}
         </div>

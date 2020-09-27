@@ -13,8 +13,12 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     
     public function counts($user){
+        
+        //お気に入り登録したアンケートの個数・・・「お気に入り」タブ
         $count_favorites = $user->favorites()->count();
+        //自分が投稿したアンケートの個数・・・「マイ・アンケート」タブ
         $count_my_enquetes = $user->enquetes()->count();
+        //他人が投稿したアンケートの個数・・・「アンケート閲覧」タブ
         $count_the_others = Enquete::get()->count() - $count_my_enquetes;
         
         return [

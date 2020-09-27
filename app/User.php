@@ -9,39 +9,35 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+    //一括で保存可能なカラム
     protected $fillable = [
         'name', 'sex', 'age', 'address', 'job', 'email', 'password',
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    //非表示にする必要があるカラム
     protected $hidden = [
         'password', 'remember_token',
     ];
     
+    //多重度の定義（ユーザー：アンケート＝1：多）
     public function enquetes()
     {
         return $this->hasMany(Enquete::class);
     }
 
+    //多重度の定義（ユーザー：回答＝1：多）
     public function answers()
     {
         return $this->hasMany(Answer::class);
     }
     
+    //多重度の定義（ユーザー：アンケート＝多：多）
     public function favorites()
     {
         return $this->belongsToMany(Enquete::class, 'favorites','user_id','enquete_id')->withTimestamps();
     }
     
+    //お気に入り登録
     public function favorite($enquete_id)
     {
         //すでにお気に入り登録しているかの確認
@@ -57,6 +53,7 @@ class User extends Authenticatable
         }
     }
     
+    //お気に入り解除
     public function unfavorite($enquete_id)
     {
         //すでにお気に入り登録しているかの確認
@@ -72,6 +69,7 @@ class User extends Authenticatable
         }
     }
     
+    //すでにお気に入り登録しているかの確認
     public function is_favorite($enquete_id){
         return $this->favorites()->where('enquete_id',$enquete_id)->exists();
     }
