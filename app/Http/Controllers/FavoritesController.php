@@ -16,7 +16,7 @@ class FavoritesController extends Controller
     {
         \Auth::user()->favorite($id);
         //直前ページに戻る
-        return back();
+        return back()->with('flash_message', 'お気に入り登録しました！');
     }
     
 /*
@@ -28,6 +28,6 @@ class FavoritesController extends Controller
     {
         \Auth::user()->unfavorite($id);
         //直前ページに戻る
-        return back();
+        return back()->with('flash_message', 'お気に入り解除しました');;
     }
 }

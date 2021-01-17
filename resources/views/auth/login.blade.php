@@ -31,6 +31,10 @@
             
             {{-- ---------- 会員登録の推奨メッセージを表示 ---------- --}}
             <p class="mt-2">会員登録がまだなら...{!! link_to_route('signup.get', '今すぐ登録しましょう!') !!}</p>
+            {{-- ---------- 「戻る」ボタンを表示 ---------- --}}
+            <a class="btn btn-secondary" href="/" role="button">
+                <i class="far fa-arrow-alt-circle-left"></i>&nbsp;戻る
+            </a>
         </div>
     </div>
 @endsection

@@ -150,7 +150,7 @@ class AnswersController extends Controller
         ]);
 
         //トップページに遷移する
-        return redirect('/');
+        return redirect('/enquetes/'.$enquete_id)->with('flash_message', 'アンケート回答が完了しました！');;
     }
     
 /*
@@ -179,6 +179,6 @@ class AnswersController extends Controller
         $answer->delete();
         
         //トップページに遷移する
-        return redirect('/');
+        return back()->with('flash_message', '回答の削除が完了しました');
     }
 }

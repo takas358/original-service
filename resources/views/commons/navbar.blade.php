@@ -5,9 +5,11 @@
 --}}
 
 <header class="mb-4">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-success"> 
+    <nav class="navbar navbar-expand-sm navbar-dark bg-success bg-gradient"> 
         {{-- ---------- サービス名を表示---------- --}}
-        <a class="navbar-brand" href="/">Open Enquete</a>
+        <a class="navbar-brand" href="/">
+            <font face="Arial Black">Open Enquete</font>
+        </a>
          
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
@@ -16,6 +18,8 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
+                <li class="nav-item" data-toggle="modal" data-target="#demoNormalModal"><a class="nav-link">製作物説明</a></li>
+                @include('commons.description')
                 {{-- ---------- ログインしている場合 ---------- --}}
                 @if (Auth::check())
                     {{-- ---------- ログアウトメニューを表示 ---------- --}}

@@ -88,7 +88,7 @@ class ChoicesController extends Controller
             }
         }
         //トップページへ遷移する
-        return redirect('/');
+        return redirect('/')->with('flash_message', 'アンケートの新規作成が完了しました!');
     }
 
 /*

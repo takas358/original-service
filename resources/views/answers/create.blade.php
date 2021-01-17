@@ -4,11 +4,10 @@
 -------------------------------------------------------------------------------------
 --}}
 
-{{-- ----------  ナビゲーションバー・エラーメッセージを表示 ---------- --}}
+{{-- ----------  ナビゲーションバー・メッセージを表示 ---------- --}}
 @extends('layouts.app')
 
 @section('content')
-    
     {{-- ----------  ページタイトルを表示 ---------- --}}
     <h1>アンケート回答</h1>
 
@@ -72,9 +71,14 @@
                             @endif
                         @endforeach
                     @endif
-                {{-- ---------- 「回答」ボタンを表示 ---------- --}}
-                {!! Form::submit('回答',['class'=>'btn btn-primary'])!!}
+                    {{-- ---------- 「回答」ボタンを表示 ---------- --}}
+                    {!! Form::submit('回答',['class'=>'btn btn-primary'])!!}
+                </div>
             {!! Form::close() !!}
+            {{-- ---------- 「戻る」ボタンを表示 ---------- --}}
+            <a class="btn btn-secondary" href= {!! "/enquetes/".$enquete->id; !!} role="button">
+                <i class="far fa-arrow-alt-circle-left"></i>&nbsp;戻る
+            </a>
         </div>
     </div>
 @endsection

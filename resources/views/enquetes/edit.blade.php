@@ -125,7 +125,7 @@
                 </div>
                 <div class="form-group">
                     <div class ="form-inline">
-                        {-- ----------  質問3 最小選択数入力欄の表示---------- --}}
+                        {{-- ----------  質問3 最小選択数入力欄の表示---------- --}}
                         {!! Form::label('min_select3', '最小選択数')!!}
                         {!! Form::select('min_select3',
                                 ['' => '選択してください', 
@@ -165,9 +165,14 @@
                         {!! Form::text('choice3_5', $choice_display[2][6], ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                {{-- ----------  「更新」ボタンを表示 ---------- --}}
-                {!! Form::submit('更新',['class'=>'btn btn-primary']) !!}
+                {{-- ----------  「変更」ボタンを表示 ---------- --}}
+                {!! Form::submit('変更',['class'=>'btn btn-primary']) !!}
             {!! Form::close() !!}
+            <br>
+            {{-- ---------- 「戻る」ボタンを表示 ---------- --}}
+            <a class="btn btn-secondary" href= {!! "/enquetes/".$enquete->id; !!} role="button">
+                <i class="far fa-arrow-alt-circle-left"></i>&nbsp;戻る
+            </a>
         </div>
     </div>
 @endsection

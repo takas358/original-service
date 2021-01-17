@@ -178,7 +178,7 @@
                 </tr>
             </table>
         </div>
-        <aside class="col-sm-1">
+        <aside class="col-sm-2">
             {{-- ----------  「お気に入り登録」もしくは「お気に入り解除」ボタンを表示 ---------- --}}
             @include('favorite.favorite_button', ['enquete' =>$enquete ])
             <br>
@@ -188,26 +188,104 @@
             {!! Form::close() !!}
             <br>
             {{-- ----------  「回答の削除」ボタンを表示 ---------- --}}
-            {!! Form::open(['route'=>['answers.delete',$enquete->id], 'method' => 'delete'])!!}
-                {!! Form::submit('回答の削除',['class' => 'btn btn-outline-danger']) !!}
-            {!! Form::close() !!}
+            <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#answerDeleteModal">
+                　回答の削除　
+            </button>
+            <!-- モーダルダイアログ -->
+            <div class="modal fade" id="answerDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title text-danger" id="demoModalTitle">確認</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           あなたの回答を削除します。<br>
+                           あとで復元することはできません。<br>
+                           本当に削除しますか？
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                            {!! Form::open(['route'=>['answers.delete',$enquete->id], 'method' => 'delete'])!!}
+                                {!! Form::submit('削除',['class' => 'btn btn-outline-danger']) !!}
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             <br>
             {{-- ----------  ログインユーザーとアンケート作成者が同じ場合 ---------- --}}
             @if (Auth::id() == $enquete->user_id)
                 <div>
                     {{-- ---------- 「アンケート変更」ボタンを表示 ---------- --}}
-                    {!! Form::open(['route'=>['enquetes.edit',$enquete->id], 'method' => 'get'])!!}
-                        {!! Form::submit('アンケート変更',['class' => 'btn btn-outline-success']) !!}
-                    {!! Form::close() !!}
+                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#enqueteChangeModal">
+                        アンケート変更
+                    </button>
+                    <!-- モーダルダイアログ -->
+                    <div class="modal fade" id="enqueteChangeModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title text-warning" id="demoModalTitle">注意</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    これからアンケート変更（タイトル、質問内容、選択肢のいずれかの変更）を行います。<br>
+                                    すでに回答がある場合は、変更することでその回答はアンケート内容と合わなくなる可能性があります。<br>
+                                    それでも変更しますか？
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                                    {!! Form::open(['route'=>['enquetes.edit',$enquete->id], 'method' => 'get'])!!}
+                                        {!! Form::submit('変更',['class' => 'btn btn-outline-success']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <div>
                     {{-- ---------- 「アンケート削除」ボタンを表示 ---------- --}}
-                    {!! Form::open(['route'=>['enquetes.destroy',$enquete->id], 'method' => 'delete'])!!}
-                        {!! Form::submit('アンケート削除',['class' => 'btn btn-outline-danger']) !!}
-                    {!! Form::close() !!}
+                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#enqueteDeleteModal">
+                        アンケート削除
+                    </button>
+                    <!-- モーダルダイアログ -->
+                    <div class="modal fade" id="enqueteDeleteModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title text-danger" id="demoModalTitle">確認</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    このアンケート（選択肢、回答も含む）を削除します。<br>
+                                    あとで復元することはできません。<br>
+                                    本当に削除しますか？
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                                    {!! Form::open(['route'=>['enquetes.destroy',$enquete->id], 'method' => 'delete'])!!}
+                                        {!! Form::submit('削除',['class' => 'btn btn-outline-danger']) !!}
+                                    {!! Form::close() !!}
+                                </div>
+                            </div>
+                        </div>
+                        </div>
                 </div>
             @endif
+            <br>
+            {{-- ---------- 「戻る」ボタンを表示 ---------- --}}
+            <a class="btn btn-secondary" href="/" role="button">
+                <i class="far fa-arrow-alt-circle-left"></i>&nbsp;戻る
+            </a>
         </aside>
     </div>
 @endsection

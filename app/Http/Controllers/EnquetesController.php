@@ -309,7 +309,7 @@ class EnquetesController extends Controller
         $coices_controller->update($request, $id);
         
         //マイページに遷移する
-        return redirect('/');
+        return redirect('/enquetes/'.$enquete->id)->with('flash_message', 'アンケートの変更が完了しました');
     }
 /*
 --------------------------------------------------------------------------------------------
@@ -324,6 +324,8 @@ class EnquetesController extends Controller
         
         //ログイン中のユーザがアンケートの作成者と同じであること
         if(\Auth::id() === $enquete->user_id){
+            //アンケート回答の削除
+            $enquete->answers()->delete();
             //アンケートの選択肢の削除
             $enquete->choices()->delete();
             //アンケートの削除
@@ -331,6 +333,6 @@ class EnquetesController extends Controller
         }
         
         //マイページに遷移する
-        return redirect('/');
+        return redirect('/')->with('flash_message', 'アンケートの削除が完了しました');
     }
 }
